@@ -5,7 +5,7 @@ class CrossValidation:
     def __init__(self):
         self._folds = []
 
-    def run_cv(self, data, n_folds, classifier, scoring_function, print_final_score=True, print_fold_score=False):
+    def run_cv(self, data, n_folds, classifier, scoring_function, print_final_score, print_fold_score):
         """
         Runs cross validation
         :param n_folds: number of folds(int)
