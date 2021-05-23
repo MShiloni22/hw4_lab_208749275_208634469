@@ -38,18 +38,26 @@ def run_knn(points):
     cv.run_cv(points, 10, m, accuracy_score, True, False)
 
 
-"""
- def run_knn1(points):
+def run_knn1(points):
+    """
+    a function for question 1
+    :param points: list of Point
+    """
     m = KNN(1)
     m.train(points)
     predicted = m.predict(points)
     true_labels = []
     for point in points:
         true_labels.append(point.label)
-    print("accuracy_score for k=1:", accuracy_score(true_labels,predicted)) 
-"""
+    print("accuracy_score for k=1:", accuracy_score(true_labels, predicted))
+
 
 def run_knn_k(points):
+    """
+    a function for question 2
+    :param points: list of Point
+    :return: a number, which is the best classifier for the given data
+    """
     best_classifier = 0
     best_accuracy_score = 0.0
     for k in range(1, 31):
@@ -64,6 +72,11 @@ def run_knn_k(points):
 
 
 def question_3(points, k):
+    """
+    question 3
+    :param points: list of Point
+    :param k: the best classifier for the given data, based on question 2
+    """
     m = KNN(k)
     m.train(points)
     n_folds_list = [2, 10, 20]
@@ -76,24 +89,27 @@ def question_3(points, k):
 
 
 def question_4(points):
+    """
+    question 4
+    :param points: list of Point
+    """
     k_list = [5, 7]
     normalization_list = [[DummyNormalizer, "DummyNormalizer"], [SumNormalizer, "SumNormalizer"],
                           [MinMaxNormalizer, "MinMaxNormalizer"], [ZNormalizer, "ZNormalizer"]]
     print("Question 4:")
     for k in k_list:
         print("K=", k, sep="")
+        m = KNN(k)
+        m.train(points)
+        cv = CrossValidation()
         for i in normalization_list:
             normalize_object = i[0]()
             normalize_object.fit(points)
             new_points = normalize_object.transform(points)
-            m = KNN(k)
-            m.train(new_points)
-            cv = CrossValidation()
-            average_score = cv.run_cv(points, 2, m, accuracy_score, False, True)
-            print("Accuracy of", i[1], "is", average_score, "\n")
-
-
-
+            #  2 is the best n-fold
+            average_score = cv.run_cv(new_points, 2, m, accuracy_score, False, True)
+            print("Accuracy of", i[1], "is", average_score)
+            print()
 
 
 if __name__ == '__main__':
@@ -103,5 +119,3 @@ if __name__ == '__main__':
     best_k = run_knn_k(loaded_points)
     question_3(loaded_points, best_k)
     question_4(loaded_points)
-
-

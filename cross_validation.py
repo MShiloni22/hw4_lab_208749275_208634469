@@ -12,8 +12,8 @@ class CrossValidation:
         :param classifier: model supporting train and predict functions
         :param data: list of Point
         :param scoring_function: function receiving arguments [real, predicted] and returning number
-        :param print_final_score: prints average cross fold score
-        :param print_fold_score: prints score per fold
+        :param print_final_score: prints average cross fold score if true
+        :param print_fold_score: prints score per fold if true
         :return: average score
         """
         # Create folds
