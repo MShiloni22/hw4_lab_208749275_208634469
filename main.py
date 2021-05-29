@@ -108,7 +108,8 @@ def question_4(points):
             new_points = normalize_object.transform(points)
             #  2 is the best n-fold
             average_score = cv.run_cv(new_points, 2, m, accuracy_score, False, True)
-            print("Accuracy of", i[1], "is", average_score)
+            formatted_average_score = "{:.2f}".format(average_score)
+            print("Accuracy of", i[1], "is", formatted_average_score)
             print()
 
 
